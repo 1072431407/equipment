@@ -1,0 +1,65 @@
+syntax = "proto3";
+package lab.jlhgxy520.equipment.rpc.proto.teacher;
+option  java_package = "lab.jlhgxy520.equipment.rpc.proto.teacher";
+option  java_outer_classname = "TeacherProto";
+option  java_multiple_files = true;
+
+service TeacherRpcServer{
+    rpc getLaboratoryList(getLaboratoryRequest) returns(stream getLaboratoryResponse){}
+    rpc getEquipmentList(getEquipmentRequest) returns(stream getEquipmentResponse){}
+    rpc attendClass(attendClassRequest) returns(attendClassResponse){}
+    rpc finishClass(finishClassRequest) returns(finishClassResponse){}
+}
+message attendClassRequest {
+    string class_id = 1;
+}
+
+message attendClassResponse {
+    State state = 1;//状态
+    string class_code = 2;
+}
+
+message finishClassRequest {
+    string class_id = 1;
+}
+
+message finishClassResponse {
+    State state = 1;//状态
+}
+
+message getEquipmentRequest {
+    string class_id = 1;
+}
+
+message getEquipmentResponse {
+    State state = 1;//状态
+    string equipment_id = 2;//设备UUID
+    string number = 3;//设备号
+    int32 equipment_state = 4;//硬件连接状态
+    string student_id = 5;//学生UUID
+    string student_name = 6;
+    double core_future = 7;
+    double exter_future = 8;
+    double rotate_future = 9;
+}
+
+message getLaboratoryRequest {
+    string teacher_id = 1;
+}
+
+message getLaboratoryResponse {
+    enum ClassState{
+        FINISH = 0;//下课
+        ATTEND  = 1;//上课
+    }
+    State state = 1;//状态
+    string class_id = 2;//教室ID
+    string class_number = 3;//教室号 520
+    string equipment_number = 4;//设备数量
+    ClassState class_state = 5;
+    string class_code = 6;
+}
+enum State{
+    SUCCEED = 0;
+    FAILED = 1;
+}

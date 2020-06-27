@@ -1,0 +1,131 @@
+syntax = "proto3";
+package lab.jlhgxy520.equipment.rpc.proto.admin;
+option  java_package = "lab.jlhgxy520.equipment.rpc.proto.admin";
+option  java_outer_classname = "AdminProto";
+option  java_multiple_files = true;
+
+service AdminRpcServer{
+    rpc adminAddEquipment(addEquipmentRequest) returns(addEquipmentResponse){}
+    rpc adminRemoveEquipment(removeEquipmentRequest) returns(removeEquipmentResponse){}
+    rpc adminGetEquipmentList(getEquipmentRequest) returns(stream getEquipmentResponse){}
+
+    rpc adminAddClass(addClassRequest) returns(addClassResponse){}
+    rpc adminRemoveClass(removeClassRequest) returns(removeClassResponse){}
+    rpc adminGetClassList(getClassRequest) returns(stream getClassResponse){}
+
+    rpc adminGetTeacherList(getTeacherRequest) returns(stream getTeacherResponse){}
+    rpc adminRemoveTeacher(removeTeacherRequest) returns(removeTeacherResponse){}
+}
+message addEquipmentRequest {
+    string class_id = 1;//UUID
+    int64 time = 2;//注册时间
+    string equipment_number = 3;//设备ID  用于绑定硬件 教室内部唯一标识
+}
+message addEquipmentResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string class_id = 2;//教室UUID
+    int64 time = 3;//注册时间
+    string equipment_id = 4;//设备UUID
+    string equipment_number = 5;//设备ID  用于绑定硬件 教室内部唯一标识
+}
+
+message removeEquipmentRequest {
+    string equipment_id = 1;//UUID
+}
+message removeEquipmentResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string message = 2;
+}
+
+message getEquipmentRequest {
+    string class_id = 1;//UUID
+}
+message getEquipmentResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string class_id = 2;//教室UUID
+    int64 time = 3;//注册时间
+    string equipment_id = 4;//设备UUID
+    string equipment_number = 5;//设备ID  用于绑定硬件 教室内部唯一标识
+}
+
+message addClassRequest {
+    string teacher_id = 1;
+    string class_number = 2;//教室号 520
+}
+message addClassResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string class_id = 2;//教室ID
+    string school = 3;
+    string class_number = 4;//教室号 520
+    string equipment_number = 5;//设备数量
+}
+
+message removeClassRequest {
+    string class_id = 1;//教室ID
+}
+message removeClassResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string message = 2;
+}
+
+message getClassRequest {
+    string teacher_id = 1;
+}
+message getClassResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string class_id = 2;//教室ID
+    string school = 3;
+    string class_number = 4;//教室号 520
+    string equipment_number = 5;//设备数量
+}
+
+message removeTeacherRequest {
+    string teacher_id = 1;
+}
+message removeTeacherResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string message = 2;
+}
+
+message getTeacherRequest {
+}
+message getTeacherResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    string school = 2;
+    string name = 3;
+    string number = 4;
+    string class_number = 5;//教室数量
+    string teacher_id = 6;
+}

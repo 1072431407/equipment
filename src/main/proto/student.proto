@@ -1,0 +1,80 @@
+syntax = "proto3";
+package lab.jlhgxy520.equipment.rpc.proto.student;
+option  java_package = "lab.jlhgxy520.equipment.rpc.proto.student";
+option  java_outer_classname = "StudentProto";
+option  java_multiple_files = true;
+
+service StudentRpcServer{
+    rpc addClass(addClassRequest) returns(addClassResponse){}
+    rpc studentClassState(studentStateRequest) returns(studentStateResponse){}
+    rpc instructExperiment(instructExperimentRequest) returns(instructExperimentResponse){}
+    rpc realTimeData(realTimeRequest) returns(stream realTimeResponse){}
+
+    rpc getEquipmentState(EquipmentStateRequest) returns(EquipmentStateResponse){};
+}
+message EquipmentStateRequest{
+    string equipment_id = 1;
+}
+message EquipmentStateResponse{
+    int32 equ_state = 1;//0标识启动  1标识停止
+    double rotate_future = 2;//将要达到的转速
+    double exter_future = 3;//将要达到的外温
+    double core_future = 4;//将要达到的内温
+}
+message realTimeRequest {
+    string student_id = 1;
+    string equipment_key = 2;
+    int64 start_time = 3;
+}
+message realTimeResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+    int64 time = 2;//系统时间
+    double coreTemper = 3;//内温度
+    double exterTemper = 4;//外温度
+    double rotate = 5;//转速
+    int64 start_time = 6;
+}
+
+message instructExperimentRequest {
+    enum Instruct{
+        START = 0;//开始实验 接收数据
+        INSTRUCT = 2;//修改转速
+        OVER = 1;//结束实验 停止接收数据
+    }
+    string student_id = 1;
+    string equipment_key = 2;
+    Instruct instruct = 3;//指令
+    string str_instruct = 4;
+}
+message instructExperimentResponse {
+    enum State{
+        SUCCEED = 0;
+        FAILED = 1;
+    }
+    State state = 1;//状态
+}
+
+message studentStateRequest {
+    string student_id = 1;
+}
+message studentStateResponse {
+    string state = 1;
+    string class_id = 2;
+    string equipment_key = 3;
+    string equipment_number = 4;//设备号
+}
+
+message addClassRequest {
+    string class_code = 1;//课堂号
+    string student_id = 2;//学生UUID
+}
+message addClassResponse {
+    string state = 1;
+    string class_id = 2;//课堂号
+    string equipment_id = 3;//设备ID
+    string equipment_number = 4;//设备号
+}
