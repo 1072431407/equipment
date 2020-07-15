@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * git pull origin master
  */
 public class ApplicationTools {
-    public final static String SERVER_IP =  "192.168.137.1";
+    public final static String SERVER_IP =  "192.168.102.56";
     public final static int MAX_SOCKET = 10;
     public final static Integer GRPC_PORT =  8282;
     public final static Integer SOCKET_PORT =  8899;
