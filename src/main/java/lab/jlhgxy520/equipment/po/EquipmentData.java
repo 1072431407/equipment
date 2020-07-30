@@ -1,7 +1,7 @@
 package lab.jlhgxy520.equipment.po;
 
 /**
- * 设备的状态参数
+ * 设备的状态参数 time,rotate,core_temper,exter_temper,equipment_id,start_time
  */
 public class EquipmentData {
     private double core_temper;//内温度

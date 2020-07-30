@@ -1,7 +1,10 @@
 package lab.jlhgxy520.equipment.po;
 
+/**
+ * equipment_id,class_id,time,number,state,school,class_number
+ */
 public class Equipment {
-    private String equipment_id;
+    private String equipment_id;//设备ID
     private String class_id;
     private long time;
     private String number;
@@ -9,8 +12,8 @@ public class Equipment {
     private String class_number;
     private int state;
 
-    private String student_id;
     private String student_name;
+    private String student_id;
     private double core_future;
     private double rotate_future;//转速 255210
     private double exter_future;//外温

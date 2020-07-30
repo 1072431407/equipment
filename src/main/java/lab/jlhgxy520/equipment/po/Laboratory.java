@@ -1,5 +1,8 @@
 package lab.jlhgxy520.equipment.po;
 
+/**
+ * class_id,class_number,teacher_id,school,state
+ */
 public class Laboratory {
     private String class_id;//课堂id//UUID
     private String class_number;//520

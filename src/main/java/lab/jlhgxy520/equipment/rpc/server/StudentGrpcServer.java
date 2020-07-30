@@ -26,14 +26,15 @@ public class StudentGrpcServer extends StudentRpcServerGrpc.StudentRpcServerImpl
     @Override
     public void realTimeData(realTimeRequest request, StreamObserver<realTimeResponse> responseObserver) {
         List<realTimeResponse> listBeans = studentConversion.realTimeData(request);
-        if (listBeans == null){
+        if (listBeans == null) {
             try {
                 responseObserver.onError(new Throwable("主动异常"));
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
             responseObserver.onCompleted();
             return;
         }
-        for (realTimeResponse item:listBeans)
+        for (realTimeResponse item : listBeans)
             responseObserver.onNext(item);
         responseObserver.onCompleted();
 
@@ -41,6 +42,7 @@ public class StudentGrpcServer extends StudentRpcServerGrpc.StudentRpcServerImpl
 
     /**
      * 获取课堂状态
+     *
      * @param request
      * @param responseObserver
      */
@@ -53,6 +55,7 @@ public class StudentGrpcServer extends StudentRpcServerGrpc.StudentRpcServerImpl
 
     /**
      * 学生加入课堂
+     *
      * @param request
      * @param responseObserver
      */
